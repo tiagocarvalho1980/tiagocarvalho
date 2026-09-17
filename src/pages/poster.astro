@@ -13,14 +13,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         Every rule title, numbered, on a single printable sheet. None of the methods.
         Pin it and work through them in whatever order your week demands.
       </p>
-      <form class="poster-form" action="{{FORM_HANDLER_URL}}" method="post" novalidate>
+      <form
+        class="poster-form"
+        action="https://buttondown.com/api/emails/embed-subscribe/tiagocarvalho"
+        method="post"
+        target="popupwindow"
+        onsubmit="window.open('https://buttondown.com/tiagocarvalho', 'popupwindow')"
+      >
         <div class="field">
           <label for="pf-email">Your email</label>
           <input id="pf-email" name="email" type="email" autocomplete="email" required />
         </div>
+        <input type="hidden" name="embed" value="1" />
+        <input type="hidden" name="tag" value="poster" />
         <button type="submit" class="btn btn-red">Send the poster</button>
         <p class="type-caption pf-fine">
-          It's on its way. The rules arrive one at a time from here.
+          A confirmation will arrive. Confirm it and the poster is on its way.
         </p>
       </form>
     </div>

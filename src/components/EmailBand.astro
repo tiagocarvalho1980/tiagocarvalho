@@ -9,6 +9,9 @@ export interface Props {
   action?: string;
 }
 
+const BD = 'https://buttondown.com/api/emails/embed-subscribe/tiagocarvalho';
+const BD_CONFIRM = 'https://buttondown.com/tiagocarvalho';
+
 const {
   variant = 'band',
   kicker = 'The poster',
@@ -16,7 +19,7 @@ const {
   body = "Print it. Pin it above your desk. Every title on it is a door, and your email opens them one at a time as they're written.",
   label = 'Your email',
   button = 'Send me the 55',
-  action = '#',
+  action = BD,
 } = Astro.props;
 ---
 <section class:list={['email-band', variant]}>
@@ -25,9 +28,15 @@ const {
       {kicker && <p class="type-kicker">{kicker}</p>}
       {heading && <h2 class="type-display-m eb-heading">{heading}</h2>}
       {body && <p class="type-body eb-body">{body}</p>}
-      <form class="eb-form" action={action} method="post" novalidate>
+      <form
+        class="eb-form"
+        action={action}
+        method="post"
+        target="popupwindow"
+        onsubmit={`window.open('${BD_CONFIRM}', 'popupwindow')`}
+      >
         <div class="eb-row">
-          <label class="visually-hidden" for="eb-email-{variant}">{label}</label>
+          <label class="visually-hidden" for={`eb-email-${variant}`}>{label}</label>
           <input
             id={`eb-email-${variant}`}
             type="email"
@@ -36,6 +45,8 @@ const {
             required
             autocomplete="email"
           />
+          <input type="hidden" name="embed" value="1" />
+          <input type="hidden" name="tag" value={variant === 'band' ? 'home-poster' : 'inline'} />
           <button type="submit" class:list={['btn', variant === 'band' ? 'btn-red' : '']}>
             {button}
           </button>
