@@ -10,6 +10,7 @@ export interface Props {
   ogImage?: string;
   schema?: any;
   hideFooter?: boolean;
+  noindex?: boolean;
 }
 
 const {
@@ -19,6 +20,7 @@ const {
   ogImage = '/og-image.jpg',
   schema,
   hideFooter = false,
+  noindex = false,
 } = Astro.props;
 
 const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
@@ -35,6 +37,8 @@ const ogImageURL = new URL(ogImage, Astro.site).href;
   <meta name="author" content="Tiago Carvalho" />
 
   <link rel="canonical" href={canonicalURL} />
+
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
