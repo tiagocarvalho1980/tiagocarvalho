@@ -1,35 +1,26 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-
-const POSTER_URL =
-  'https://drive.google.com/file/d/1XAcFT4dO00LzoY2pHwQgnIMMb4aqltIC/view?usp=sharing';
 ---
 <BaseLayout
   title="You're on the list — Tiago Carvalho"
-  description="Subscription received. The 55 poster is here — print it at A3 and pin it above your desk."
+  description="You're on the list. One email per new rule as it's written."
   noindex={true}
 >
   <section class="section subscribed">
     <div class="wrap-read">
       <p class="type-kicker">You're on the list</p>
-      <h1 class="type-display-l s-title">The poster's here.</h1>
+      <h1 class="type-display-l s-title">Welcome.</h1>
 
       <p class="type-body-l s-body">
-        Fifty-five rows. Print it at A3 and pin it above your desk. One title on it so
-        far. The rest arrive one at a time from here — one email per new rule,
-        nothing else.
+        One email per new rule as it lands. Nothing else. Rule 10 is written and
+        waiting — confirm your subscription in the email that just arrived, and it
+        follows on. The others come one at a time from there.
       </p>
-
-      <div class="s-cta">
-        <a class="btn btn-red" href={POSTER_URL} target="_blank" rel="noopener">
-          Open the poster
-        </a>
-      </div>
 
       <div class="s-note">
         <p class="type-caption">
           Didn't get the confirmation email yet? Check your promotions or spam folder.
-          The confirm link matters — without it, no rules land in your inbox.
+          Without the confirm click, no rules land in your inbox.
         </p>
       </div>
 
@@ -44,7 +35,6 @@ const POSTER_URL =
   .subscribed { padding-block: clamp(64px, 8vw, 120px); }
   .s-title { margin-top: 18px; text-wrap: balance; max-width: 20ch; }
   .s-body { margin-top: var(--s-5); color: var(--ink-70); max-width: 55ch; }
-  .s-cta { margin-top: var(--s-7); }
   .s-note {
     margin-top: var(--s-8);
     padding-top: var(--s-5);

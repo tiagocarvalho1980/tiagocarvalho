@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/poster",
+      "destination": "/subscribe",
+      "permanent": true
+    }
+  ]
+}

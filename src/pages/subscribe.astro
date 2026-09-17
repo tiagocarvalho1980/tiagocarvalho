@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="The rules, in your inbox — Tiago Carvalho"
+  description="One email per new rule as it's written. Nothing else. Fifty-five in the end."
+>
+  <section class="section subscribe-hero">
+    <div class="wrap-read">
+      <p class="type-kicker">The rules</p>
+      <h1 class="type-display-l sh-title">The rules, in your inbox.</h1>
+      <p class="type-body-l sh-body">
+        One at a time, as they're written. Fifty-five rules for selling, serving and
+        starting again. Each one comes with a method to use today and a single thing to
+        practise before tomorrow. Nothing else in the inbox.
+      </p>
+      <form
+        class="subscribe-form"
+        action="https://buttondown.com/api/emails/embed-subscribe/tiagocarvalho"
+        method="post"
+        target="popupwindow"
+        onsubmit="window.open('https://buttondown.com/tiagocarvalho', 'popupwindow')"
+      >
+        <div class="field">
+          <label for="sf-email">Your email</label>
+          <input id="sf-email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <input type="hidden" name="embed" value="1" />
+        <input type="hidden" name="tag" value="subscribe" />
+        <button type="submit" class="btn btn-red">Send me the rules</button>
+        <p class="type-caption sf-fine">
+          A confirmation will land in your inbox. Confirm it and you're on the list —
+          the first rule follows.
+        </p>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .subscribe-hero { padding-block: clamp(64px, 8vw, 120px) clamp(64px, 8vw, 120px); }
+  .sh-title { margin-top: 18px; text-wrap: balance; max-width: 20ch; }
+  .sh-body { margin-top: var(--s-5); color: var(--ink-70); max-width: 55ch; }
+  .subscribe-form { margin-top: var(--s-7); max-width: 480px; }
+  .sf-fine { margin-top: var(--s-4); color: var(--ink-70); font-style: italic; }
+</style>
