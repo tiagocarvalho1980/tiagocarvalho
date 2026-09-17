@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Tiago Carvalho — 55">
+  <rect width="64" height="64" fill="#161513"/>
+  <text x="32" y="46" text-anchor="middle"
+        font-family="'Fraunces', Georgia, serif"
+        font-weight="500"
+        font-size="42"
+        letter-spacing="-1"
+        fill="#F4F1EA">55</text>
+  <line x1="20" y1="54" x2="44" y2="54" stroke="#8C2F1B" stroke-width="1.6" stroke-linecap="square"/>
+</svg>

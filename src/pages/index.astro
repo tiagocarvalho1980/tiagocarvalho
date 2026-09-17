@@ -1,0 +1,313 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import RuleTile from '../components/RuleTile.astro';
+import EmailBand from '../components/EmailBand.astro';
+import { getCollection } from 'astro:content';
+
+const entries = (await getCollection('entries')).sort((a, b) => a.data.n - b.data.n);
+const notes = (await getCollection('notes')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const writtenCount = entries.filter((e) => e.data.status === 'written').length;
+const nextEntry = entries.find((e) => e.data.status === 'locked');
+const nextTitle = nextEntry?.data.title ?? `Rule ${String(nextEntry?.data.n ?? '').padStart(2, '0')}`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Tiago Carvalho',
+  jobTitle: 'Sales strategist, founder of HYPE',
+  url: 'https://tiagocarvalho.co',
+  sameAs: [
+    'https://www.linkedin.com/in/tiagocarvalho-hype',
+    'https://www.instagram.com/tiagocarvalho.co',
+    'https://x.com/tiagocarvalho',
+  ],
+  worksFor: {
+    '@type': 'Organization',
+    name: 'HYPE',
+    url: 'https://www.hypedigital.ie',
+  },
+};
+---
+<BaseLayout
+  title="Tiago Carvalho — 55 rules for selling, serving and starting again"
+  description="Fifty-five rules for selling, serving and starting again. One rule at a time. Each one comes with a method you can use today and a single thing to practise before tomorrow."
+  schema={schema}
+>
+  <!-- ================ HERO ================ -->
+  <section class="section hero">
+    <div class="wrap-read">
+      <p class="type-kicker">Rules, methods and the practice behind them</p>
+      <h1 class="type-display-xl hero-h1">
+        Fifty-five rules for selling, serving and starting again.
+      </h1>
+      <p class="type-body-l hero-sub">
+        One rule at a time. Each one comes with a method you can use today and a single thing
+        to practise before tomorrow. Written for people who sell, serve customers, or are
+        rebuilding something.
+      </p>
+      <div class="byline-block">
+        <figure class="flap">
+          <img src="/tiago.jpg" alt="Tiago Carvalho" width="200" height="250" loading="lazy" />
+          <figcaption class="type-caption">Tiago Carvalho · Cork, Ireland</figcaption>
+        </figure>
+        <div class="byline-text">
+          <p class="type-body byline">
+            Written by <b>Tiago Carvalho</b>. Twenty years in sales — from hotel reservations
+            to nightclub bars to running HYPE, a creative studio in Ireland. The current
+            obsession is generative AI, and cinematic short films made one character at a
+            time.
+          </p>
+          <div class="progress">
+            <span class="p-num type-num">{String(writtenCount).padStart(2, '0')}</span>
+            <span class="p-sep">of</span>
+            <span class="p-total type-num">55</span>
+            <span class="p-word">written</span>
+            <span class="p-dot">·</span>
+            <span class="p-next-label">Next:</span>
+            <span class="p-next-title">{nextTitle}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================ GRID: THE 55 ================ -->
+  <section id="the-55" class="section-tight grid-section">
+    <div class="wrap">
+      <div class="grid-head">
+        <div>
+          <p class="type-eyebrow">The 55</p>
+          <h2 class="type-display-l gh-title">Fifty-five doors.</h2>
+        </div>
+        <p class="type-caption grid-caption">
+          Dark tiles are written. Light tiles are locked until they're ready.
+        </p>
+      </div>
+      <div class="grid-55" role="list" aria-label="The 55 rules">
+        {entries.map((e) => (
+          <div role="listitem">
+            <RuleTile n={e.data.n} title={e.data.title} status={e.data.status} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================ NOTES SHELF ================ -->
+  <section id="notes" class="section notes-section">
+    <div class="wrap-read">
+      <div class="grid-head grid-head-single">
+        <div>
+          <p class="type-eyebrow">Notes</p>
+          <h2 class="type-display-l gh-title">This week, on the record.</h2>
+        </div>
+        <p class="type-caption grid-caption">
+          Dated. What I'm watching this week in sales, content and AI. Every note ends on a
+          rule.
+        </p>
+      </div>
+      {notes.length === 0 ? (
+        <div class="notes-empty">
+          <p class="type-body">
+            First notes drop in September. Get them in your inbox — one per new rule,
+            nothing else.
+          </p>
+        </div>
+      ) : (
+        <ul class="notes-list">
+          {notes.slice(0, 5).map((note) => (
+            <li class="note-row">
+              <a href={`/notes/${note.id.replace(/\.md$/, '')}`} class="note-link">
+                <span class="note-date type-caption">
+                  {note.data.date.toLocaleDateString('en-GB', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                  })}
+                </span>
+                <span class="note-title type-display-s">{note.data.title}</span>
+                <span class="note-rule type-caption">Rule {String(note.data.rule).padStart(2, '0')}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+      {notes.length > 5 && (
+        <p class="notes-more">
+          <a href="/notes" class="link-underline arrow">All notes</a>
+        </p>
+      )}
+    </div>
+  </section>
+
+  <!-- ================ WORK STRIP ================ -->
+  <section class="section work-strip">
+    <div class="wrap-read">
+      <p class="type-kicker">Work with me</p>
+      <h2 class="type-display-l ws-title">Sales systems for hotels. Content that sells. Speaking.</h2>
+      <a href="/work" class="btn btn-outline arrow">Start a conversation</a>
+    </div>
+  </section>
+
+  <!-- ================ EMAIL BAND / POSTER ================ -->
+  <EmailBand
+    variant="band"
+    kicker="The poster"
+    heading="All 55 rules on one page. None of the methods."
+    body="Print it. Pin it above your desk. Every title on it is a door, and your email opens them one at a time as they're written."
+    label="Your email"
+    button="Send me the 55"
+    action="/poster"
+  />
+
+  <!-- ================ BOOK STRIP ================ -->
+  <section class="section-tight book-strip">
+    <div class="wrap-read">
+      <p class="type-kicker">The book</p>
+      <h2 class="type-display-l bs-title">The book carries the stories.</h2>
+      <p class="type-body-l bs-body">
+        The site gives you the rule and the method. The book gives you the night each one
+        was learned.
+      </p>
+      <a href="/book" class="btn btn-outline arrow">Coming — leave your email</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero { padding-block-start: clamp(48px, 6vw, 96px); padding-block-end: clamp(48px, 6vw, 96px); }
+  .hero-h1 { margin-top: 18px; text-wrap: balance; max-width: 22ch; }
+  .hero-sub { margin-top: var(--s-5); color: var(--ink-70); max-width: 55ch; }
+  .byline-block {
+    margin-top: var(--s-6);
+    padding-top: var(--s-5);
+    border-top: var(--hair);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--s-6);
+    align-items: start;
+  }
+  .flap { margin: 0; }
+  .flap img {
+    width: 200px;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center 22%;
+    display: block;
+    filter: contrast(1.02) saturate(0.94);
+    box-shadow:
+      0 20px 40px -12px rgba(22, 21, 19, 0.28),
+      0 6px 14px -6px rgba(22, 21, 19, 0.18);
+  }
+  .flap figcaption {
+    margin-top: 10px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-45);
+    font-style: normal;
+  }
+  .byline-text { padding-top: 4px; }
+  .byline {
+    color: var(--ink-70);
+    max-width: 58ch;
+  }
+  .byline b { color: var(--ink); font-weight: 600; }
+  @media (max-width: 640px) {
+    .byline-block {
+      grid-template-columns: 1fr;
+      gap: var(--s-4);
+    }
+    .flap img { width: 160px; }
+  }
+  .progress {
+    margin-top: var(--s-6);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px;
+    font-family: var(--f-body);
+    font-size: 14px;
+    color: var(--ink-70);
+  }
+  .p-num, .p-total {
+    color: var(--red);
+    font-size: 22px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .p-word { text-transform: uppercase; letter-spacing: 0.18em; font-weight: 600; font-size: 11px; }
+  .p-dot { color: var(--ink-45); }
+  .p-next-label { text-transform: uppercase; letter-spacing: 0.18em; font-weight: 600; font-size: 11px; color: var(--ink-45); }
+  .p-next-title { color: var(--ink); font-weight: 500; }
+
+  /* Grid section */
+  .grid-section { padding-block-end: clamp(64px, 8vw, 128px); }
+  .grid-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--s-6);
+    align-items: end;
+    margin-bottom: var(--s-6);
+  }
+  .grid-head-single { grid-template-columns: 1fr; }
+  .gh-title { text-wrap: balance; }
+  .grid-caption { max-width: 34ch; text-align: right; }
+  .grid-head-single .grid-caption { text-align: left; margin-top: var(--s-3); }
+
+  .grid-55 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 900px) { .grid-55 { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 560px) { .grid-55 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 720px) {
+    .grid-head { grid-template-columns: 1fr; }
+    .grid-caption { text-align: left; margin-top: var(--s-3); }
+  }
+
+  /* Notes shelf */
+  .notes-section { padding-block: clamp(56px, 7vw, 96px); }
+  .notes-empty {
+    padding: var(--s-6) 0 0;
+    color: var(--ink-70);
+    max-width: 52ch;
+  }
+  .notes-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: var(--hair);
+  }
+  .note-row { border-bottom: var(--hair); }
+  .note-link {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    align-items: baseline;
+    gap: var(--s-5);
+    padding: var(--s-5) 0;
+    transition: background var(--t-med), padding var(--t-med);
+  }
+  .note-link:hover { background: var(--ink-08); padding-inline: var(--s-3); }
+  .note-date { color: var(--ink-45); text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px; }
+  .note-title { color: var(--ink); text-wrap: balance; }
+  .note-rule { color: var(--red); font-weight: 600; letter-spacing: 0.18em; font-size: 11px; text-transform: uppercase; }
+  .notes-more { margin-top: var(--s-5); }
+  @media (max-width: 720px) {
+    .note-link { grid-template-columns: 1fr; gap: 6px; padding-block: var(--s-4); }
+  }
+
+  /* Work strip */
+  .work-strip { padding-block: clamp(56px, 7vw, 96px); border-top: var(--hair); }
+  .ws-title { margin: 18px 0 var(--s-5); max-width: 20ch; text-wrap: balance; }
+
+  /* Book strip */
+  .book-strip { padding-block: clamp(48px, 6vw, 88px); border-top: var(--hair); }
+  .bs-title { margin: 18px 0 var(--s-4); max-width: 24ch; text-wrap: balance; }
+  .bs-body { margin-bottom: var(--s-5); color: var(--ink-70); max-width: 48ch; }
+</style>

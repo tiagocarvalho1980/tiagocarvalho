@@ -1,0 +1,95 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="foot-brand">
+      <a href="/" class="fb-name">Tiago Carvalho</a>
+      <span class="fb-tag">Rules, methods and the practice behind them.</span>
+    </div>
+    <nav aria-label="Footer" class="foot-nav">
+      <ul>
+        <li><a href="/55">The 55</a></li>
+        <li><a href="/notes">Notes</a></li>
+        <li><a href="/book">The book</a></li>
+        <li><a href="/work">Work with me</a></li>
+        <li><a href="/poster">Poster</a></li>
+      </ul>
+    </nav>
+    <div class="foot-social">
+      <ul>
+        <li><a href="https://www.linkedin.com/in/tiagocarvalho-hype" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com/tiagocarvalho.co" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://x.com/tiagocarvalho" target="_blank" rel="noopener">X</a></li>
+      </ul>
+    </div>
+    <div class="foot-meta">
+      <span>tiagocarvalho.co · {year}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--ink);
+    color: var(--paper);
+    padding-block: clamp(48px, 6vw, 88px);
+    margin-top: var(--s-10);
+  }
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: var(--s-7);
+    align-items: start;
+  }
+  .fb-name {
+    font-family: var(--f-display);
+    font-weight: 500;
+    font-size: 24px;
+    color: var(--paper);
+    letter-spacing: -0.01em;
+    display: block;
+    margin-bottom: 12px;
+    font-variation-settings: "opsz" 48, "SOFT" 30;
+  }
+  .fb-tag {
+    font-family: var(--f-body);
+    font-size: 14px;
+    color: var(--paper-70);
+    line-height: 1.55;
+    max-width: 32ch;
+    display: block;
+  }
+  .foot-nav ul, .foot-social ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .foot-nav a, .foot-social a {
+    color: var(--paper-70);
+    font-family: var(--f-body);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    transition: color var(--t-med);
+  }
+  .foot-nav a:hover, .foot-social a:hover { color: var(--brass); }
+  .foot-meta {
+    grid-column: 1 / -1;
+    padding-top: var(--s-5);
+    border-top: 1px solid rgba(244, 241, 234, 0.10);
+    font-family: var(--f-body);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--paper-45);
+  }
+  @media (max-width: 720px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: var(--s-6);
+    }
+  }
+</style>

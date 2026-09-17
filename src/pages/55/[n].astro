@@ -1,0 +1,273 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EmailBand from '../../components/EmailBand.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('entries');
+  return entries.map((entry) => ({
+    params: { n: String(entry.data.n).padStart(2, '0') },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as { entry: any };
+const { Content } = await render(entry);
+
+const num = String(entry.data.n).padStart(2, '0');
+const isLocked = entry.data.status === 'locked';
+const title = entry.data.title;
+
+// Prev/next by number
+const all = (await getCollection('entries')).sort((a: any, b: any) => a.data.n - b.data.n);
+const idx = all.findIndex((e: any) => e.data.n === entry.data.n);
+const prev = all[idx - 1];
+const next = all[idx + 1];
+const pad = (n: number) => String(n).padStart(2, '0');
+
+const pageTitle = isLocked
+  ? `Rule ${num} — The 55 by Tiago Carvalho`
+  : `Rule ${num}: ${title} — The 55 by Tiago Carvalho`;
+
+const pageDescription = entry.data.description ??
+  (isLocked
+    ? `Rule ${num} of 55 — not yet written. Leave your email to hear when it goes live.`
+    : `Rule ${num} of 55. ${title}. Read the method and the practice, or subscribe for the next one.`);
+
+const schema = isLocked ? null : {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description: entry.data.description,
+  author: {
+    '@type': 'Person',
+    name: 'Tiago Carvalho',
+    url: 'https://tiagocarvalho.co',
+  },
+  datePublished: entry.data.published?.toISOString(),
+  articleSection: 'The 55',
+  isPartOf: {
+    '@type': 'CreativeWorkSeries',
+    name: 'The 55',
+    numberOfEpisodes: 55,
+  },
+};
+---
+<BaseLayout title={pageTitle} description={pageDescription} schema={schema}>
+  <article class="entry">
+    <div class="wrap-read">
+      <!-- Kicker row -->
+      <div class="entry-kicker">
+        <span class="type-kicker">Rule {num} of 55</span>
+        {!isLocked && entry.data.reading_time && (
+          <span class="type-caption reading-time">{entry.data.reading_time}</span>
+        )}
+      </div>
+
+      <!-- Title -->
+      <h1 class="type-display-l entry-h1">
+        {title ?? 'Not yet written.'}
+      </h1>
+
+      {isLocked ? (
+        <div class="entry-locked">
+          <p class="type-body-l locked-line">
+            It's on the list, and it's coming in order. Rules ship one per week from
+            September. Leave your email and you'll hear when this one is live.
+          </p>
+          <div class="locked-email">
+            <EmailBand
+              variant="inline"
+              kicker=""
+              heading=""
+              body=""
+              label="Your email"
+              button="Tell me when this is live"
+              action="/poster"
+            />
+          </div>
+        </div>
+      ) : (
+        <Fragment>
+          <div class="entry-body">
+            <Content />
+          </div>
+
+          {entry.data.tease && (
+            <p class="entry-tease type-body-l">
+              <em>{entry.data.tease}</em>
+            </p>
+          )}
+
+          <div class="entry-book-cta">
+            <a href="/book" class="btn btn-outline arrow">The book</a>
+          </div>
+
+          <div class="entry-email">
+            <EmailBand
+              variant="inline"
+              kicker=""
+              heading="Next rule, in your inbox."
+              body=""
+              label="Your email"
+              button="Send"
+              action="/poster"
+            />
+          </div>
+        </Fragment>
+      )}
+
+      <!-- Prev / Next -->
+      <nav class="entry-nav" aria-label="Rule navigation">
+        {prev ? (
+          <a class="en-link en-prev" href={`/55/${pad(prev.data.n)}`}>
+            <span class="type-caption en-label">Previous</span>
+            <span class="en-title">
+              <span class="type-num en-num">{pad(prev.data.n)}</span>
+              {prev.data.title ? <span class="en-t">{prev.data.title}</span> : null}
+            </span>
+          </a>
+        ) : <span class="en-empty" />}
+        {next ? (
+          <a class="en-link en-next" href={`/55/${pad(next.data.n)}`}>
+            <span class="type-caption en-label">Next</span>
+            <span class="en-title">
+              <span class="type-num en-num">{pad(next.data.n)}</span>
+              {next.data.title ? <span class="en-t">{next.data.title}</span> : null}
+            </span>
+          </a>
+        ) : <span class="en-empty" />}
+      </nav>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .entry { padding-block: clamp(48px, 6vw, 88px) 0; }
+
+  .entry-kicker {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--s-4);
+    padding-bottom: var(--s-4);
+    border-bottom: var(--hair);
+  }
+  .reading-time {
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 11px;
+    color: var(--ink-45);
+  }
+
+  .entry-h1 {
+    margin-top: var(--s-6);
+    text-wrap: balance;
+    max-width: 20ch;
+  }
+
+  /* Locked */
+  .entry-locked {
+    margin-top: var(--s-6);
+    padding-top: var(--s-6);
+    border-top: var(--hair);
+  }
+  .locked-line { color: var(--ink-70); max-width: 52ch; }
+  .locked-email { margin-top: var(--s-5); }
+
+  /* Written body — markdown output */
+  .entry-body {
+    margin-top: var(--s-6);
+    max-width: 640px;
+  }
+  .entry-body :global(> p) {
+    font-family: var(--f-body);
+    font-size: 19px;
+    line-height: 1.7;
+    color: var(--ink);
+    margin-bottom: var(--s-5);
+  }
+  .entry-body :global(> p:first-of-type) {
+    font-size: 21px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .entry-body :global(h2) {
+    font-family: var(--f-display);
+    font-weight: 500;
+    font-size: clamp(24px, 2.4vw, 30px);
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    margin-top: var(--s-8);
+    margin-bottom: var(--s-4);
+    padding-top: var(--s-5);
+    border-top: var(--hair);
+    color: var(--ink);
+    font-variation-settings: "opsz" 36, "SOFT" 30;
+  }
+  .entry-body :global(h2:first-of-type) {
+    padding-top: 0;
+    border-top: 0;
+  }
+  .entry-body :global(strong) { color: var(--ink); font-weight: 600; }
+  .entry-body :global(em) { font-style: italic; color: var(--ink); }
+  .entry-body :global(h2 + p),
+  .entry-body :global(strong + em) { }
+
+  /* "Today's practice" — highlighted box (via convention: appears under H2 "Today's practice") */
+  .entry-body :global(h2:nth-of-type(2) + p) {
+    padding: var(--s-5) var(--s-5);
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--f-body);
+    border-left: 4px solid var(--red);
+  }
+
+  .entry-tease {
+    margin-top: var(--s-7);
+    padding: var(--s-5);
+    background: var(--lock-bg);
+    color: var(--ink);
+    max-width: 640px;
+    font-family: var(--f-display);
+    font-size: 18px;
+    line-height: 1.5;
+    font-variation-settings: "opsz" 24, "SOFT" 30;
+    border-left: 3px solid var(--red);
+  }
+  .entry-tease em { font-style: italic; }
+
+  .entry-book-cta { margin-top: var(--s-6); }
+  .entry-email { margin-top: var(--s-7); }
+
+  /* Prev / Next */
+  .entry-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-5);
+    margin-top: var(--s-9);
+    padding-top: var(--s-6);
+    border-top: var(--hair);
+  }
+  .en-link {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: var(--s-4);
+    border: 1px solid transparent;
+    transition: border-color var(--t-med), background var(--t-med);
+  }
+  .en-link:hover { border-color: var(--red); background: var(--ink-08); }
+  .en-next { text-align: right; align-items: flex-end; }
+  .en-label { color: var(--ink-45); text-transform: uppercase; letter-spacing: 0.2em; font-size: 11px; }
+  .en-title { display: flex; align-items: baseline; gap: 12px; }
+  .en-next .en-title { flex-direction: row-reverse; }
+  .en-num { font-size: 24px; color: var(--red); line-height: 1; }
+  .en-t { font-family: var(--f-display); font-size: 17px; font-weight: 500; text-wrap: balance; }
+  .en-empty { display: block; }
+  @media (max-width: 560px) {
+    .entry-nav { grid-template-columns: 1fr; }
+    .en-next { text-align: left; align-items: flex-start; }
+    .en-next .en-title { flex-direction: row; }
+  }
+</style>

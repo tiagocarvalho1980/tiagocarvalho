@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EmailBand from '../components/EmailBand.astro';
+---
+<BaseLayout
+  title="The book — Tiago Carvalho"
+  description="Fifty-five rules, fifty-five methods, and the life that produced them. The site gives you what to do. The book gives you why."
+>
+  <section class="section book-hero">
+    <div class="wrap-read">
+      <p class="type-kicker">The book</p>
+      <h1 class="type-display-l bh-title">The book carries the stories.</h1>
+      <p class="type-body-l bh-body">
+        Fifty-five rules, fifty-five methods, and the life that produced them: the
+        salon, the nightclub, the hotel phones, the agency that nearly died twice. The
+        site gives you what to do. The book gives you why.
+      </p>
+      <p class="type-caption bh-date">
+        <em>Coming — leave your email and you'll know first.</em>
+      </p>
+    </div>
+  </section>
+
+  <EmailBand
+    variant="band"
+    kicker="The book"
+    heading="Leave your email. Hear first."
+    body="One email when the book has a date, one when it opens for preorder, one when it ships. Nothing else."
+    label="Your email"
+    button="Send"
+    action="/poster"
+  />
+</BaseLayout>
+
+<style>
+  .book-hero { padding-block: clamp(48px, 6vw, 96px) clamp(48px, 6vw, 96px); }
+  .bh-title { margin-top: 18px; text-wrap: balance; max-width: 22ch; }
+  .bh-body { margin-top: var(--s-5); color: var(--ink-70); max-width: 55ch; }
+  .bh-date { margin-top: var(--s-6); }
+</style>

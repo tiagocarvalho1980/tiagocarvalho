@@ -1,0 +1,335 @@
+/* =========================================================
+   The 55 — global styles
+   Design tokens live here. Never introduce a colour outside this file.
+   ========================================================= */
+
+:root {
+  /* Palette */
+  --paper: #F4F1EA;
+  --ink: #161513;
+  --lock-bg: #EDE8DE;
+  --lock-text: #6B655C;
+  --red: #8C2F1B;
+  --brass: #C9B58A;
+
+  /* Derived */
+  --ink-70: rgba(22, 21, 19, 0.72);
+  --ink-45: rgba(22, 21, 19, 0.48);
+  --ink-15: rgba(22, 21, 19, 0.15);
+  --ink-08: rgba(22, 21, 19, 0.08);
+  --paper-70: rgba(244, 241, 234, 0.78);
+  --paper-45: rgba(244, 241, 234, 0.52);
+
+  /* Fonts */
+  --f-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --f-body: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+
+  /* Spacing scale (8px base) */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 128px;
+
+  /* Layout widths */
+  --col-read: 720px;
+  --col-wide: 1120px;
+  --gutter: clamp(20px, 5vw, 40px);
+
+  /* Rules */
+  --hair: 1px solid var(--ink-15);
+  --hair-strong: 1px solid var(--ink);
+
+  /* Ease */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t-fast: 180ms var(--ease);
+  --t-med: 320ms var(--ease);
+}
+
+/* =========================================================
+   Reset
+   ========================================================= */
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img, svg, video { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; background: transparent; border: 0; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+input, textarea { font: inherit; color: inherit; background: transparent; border: 0; outline: 0; }
+
+/* =========================================================
+   Type scale — used everywhere via classes
+   ========================================================= */
+
+.type-display-xl {
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: clamp(44px, 6.4vw, 88px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 96, "SOFT" 30;
+}
+.type-display-l {
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: clamp(34px, 4.6vw, 60px);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  font-variation-settings: "opsz" 72, "SOFT" 30;
+}
+.type-display-m {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 48, "SOFT" 30;
+}
+.type-display-s {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  font-variation-settings: "opsz" 36, "SOFT" 30;
+}
+.type-body-l {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1.65;
+}
+.type-body {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.65;
+}
+.type-body-s {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.type-kicker {
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.type-eyebrow {
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.type-caption {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--ink-70);
+  line-height: 1.55;
+}
+.type-num {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-feature-settings: "tnum", "lnum";
+  font-variation-settings: "opsz" 96;
+}
+
+/* =========================================================
+   Layout containers
+   ========================================================= */
+
+.wrap {
+  width: 100%;
+  max-width: var(--col-wide);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.wrap-read {
+  width: 100%;
+  max-width: var(--col-read);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.section {
+  padding-block: clamp(56px, 8vw, 112px);
+}
+.section-tight {
+  padding-block: clamp(40px, 5vw, 72px);
+}
+.divider {
+  height: 0;
+  border-top: var(--hair);
+}
+
+/* =========================================================
+   Reusable button / form
+   ========================================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 26px;
+  min-height: 48px;
+  font-family: var(--f-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--ink);
+  transition: background var(--t-med), color var(--t-med);
+  cursor: pointer;
+}
+.btn:hover, .btn:focus-visible { background: transparent; color: var(--ink); outline: none; }
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+.btn-outline:hover, .btn-outline:focus-visible { background: var(--ink); color: var(--paper); }
+.btn-red {
+  background: var(--red);
+  color: var(--paper);
+  border: 1px solid var(--red);
+}
+.btn-red:hover, .btn-red:focus-visible { background: transparent; color: var(--red); }
+
+.link-underline {
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2px;
+  transition: color var(--t-med), border-color var(--t-med);
+}
+.link-underline:hover { color: var(--red); border-bottom-color: var(--red); }
+
+.arrow::after { content: " \2192"; }
+
+/* Form */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: var(--s-5);
+}
+.field label {
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.field input[type="text"],
+.field input[type="email"],
+.field textarea,
+.field select {
+  width: 100%;
+  padding: 14px 16px;
+  font-family: var(--f-body);
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--ink-15);
+  border-radius: 0;
+  transition: border-color var(--t-med);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-color: var(--ink);
+  outline: 1px solid var(--ink);
+  outline-offset: -2px;
+}
+.field textarea { min-height: 140px; resize: vertical; }
+
+/* Radio option row */
+.opts { display: flex; flex-wrap: wrap; gap: 10px; }
+.opts label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid var(--ink-15);
+  cursor: pointer;
+  transition: border-color var(--t-med), background var(--t-med);
+  font-size: 13px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+  color: var(--ink);
+}
+.opts label:has(input:checked) { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.opts input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+
+/* =========================================================
+   Focus rings, motion
+   ========================================================= */
+
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================================================
+   Skip link (a11y)
+   ========================================================= */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 999;
+}
+.skip-link:focus {
+  position: fixed;
+  left: 16px;
+  top: 16px;
+  width: auto;
+  height: auto;
+  padding: 12px 16px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 13px;
+  font-weight: 600;
+}

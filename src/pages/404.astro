@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Not found — Tiago Carvalho"
+  description="The page you were looking for isn't here. The 55 is."
+>
+  <section class="section notfound">
+    <div class="wrap-read">
+      <p class="type-kicker">Not found</p>
+      <h1 class="type-display-l nf-title">This page isn't written.</h1>
+      <p class="type-body-l nf-body">
+        Sometimes that's a broken link. Sometimes it's a rule that hasn't shipped yet.
+        Either way, the index has all fifty-five doors.
+      </p>
+      <div class="nf-links">
+        <a href="/55" class="btn btn-outline arrow">The 55</a>
+        <a href="/" class="link-underline">Home</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound { padding-block: clamp(64px, 8vw, 120px); }
+  .nf-title { margin-top: 18px; text-wrap: balance; }
+  .nf-body { margin-top: var(--s-5); color: var(--ink-70); max-width: 55ch; }
+  .nf-links { margin-top: var(--s-6); display: flex; gap: var(--s-5); align-items: center; }
+</style>

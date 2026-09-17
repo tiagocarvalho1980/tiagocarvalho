@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EmailBand from '../../components/EmailBand.astro';
+import { getCollection } from 'astro:content';
+
+const notes = (await getCollection('notes')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+<BaseLayout
+  title="Notes — Tiago Carvalho"
+  description="Dated notes on sales, content and AI. Every note ends on a rule."
+>
+  <section class="section notes-hero">
+    <div class="wrap-read">
+      <p class="type-kicker">Notes</p>
+      <h1 class="type-display-l nh-title">This week, on the record.</h1>
+      <p class="type-body-l nh-sub">
+        Dated. What I'm watching this week in sales, content and AI. Every note ends on
+        a rule.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight notes-list-section">
+    <div class="wrap-read">
+      {notes.length === 0 ? (
+        <div class="notes-empty">
+          <p class="type-body">
+            First notes drop in September. If you'd like them in your inbox as they land,
+            leave your email below.
+          </p>
+        </div>
+      ) : (
+        <ul class="notes-list">
+          {notes.map((note) => (
+            <li class="note-row">
+              <a href={`/notes/${note.id.replace(/\.md$/, '')}`} class="note-link">
+                <span class="note-date type-caption">
+                  {note.data.date.toLocaleDateString('en-GB', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                  })}
+                </span>
+                <span class="note-title type-display-s">{note.data.title}</span>
+                <span class="note-rule type-caption">Rule {String(note.data.rule).padStart(2, '0')}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+
+  <EmailBand
+    variant="band"
+    kicker="Notes"
+    heading="Notes and rules, in your inbox."
+    body="One email per new rule. Nothing else. Unsubscribe any time."
+    label="Your email"
+    button="Send me the notes"
+    action="/poster"
+  />
+</BaseLayout>
+
+<style>
+  .notes-hero { padding-block: clamp(48px, 6vw, 96px) var(--s-6); }
+  .nh-title { margin-top: 18px; }
+  .nh-sub { margin-top: var(--s-5); color: var(--ink-70); max-width: 55ch; }
+
+  .notes-list-section { padding-block-end: clamp(64px, 8vw, 128px); }
+  .notes-empty {
+    padding: var(--s-6) 0 0;
+    color: var(--ink-70);
+    max-width: 52ch;
+    border-top: var(--hair);
+  }
+  .notes-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: var(--hair);
+  }
+  .note-row { border-bottom: var(--hair); }
+  .note-link {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    align-items: baseline;
+    gap: var(--s-5);
+    padding: var(--s-5) 0;
+    transition: background var(--t-med), padding var(--t-med);
+  }
+  .note-link:hover { background: var(--ink-08); padding-inline: var(--s-3); }
+  .note-date { color: var(--ink-45); text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px; }
+  .note-title { color: var(--ink); text-wrap: balance; }
+  .note-rule { color: var(--red); font-weight: 600; letter-spacing: 0.18em; font-size: 11px; text-transform: uppercase; }
+  @media (max-width: 720px) {
+    .note-link { grid-template-columns: 1fr; gap: 6px; padding-block: var(--s-4); }
+  }
+</style>

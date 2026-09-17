@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RuleTile from '../../components/RuleTile.astro';
+import EmailBand from '../../components/EmailBand.astro';
+import { getCollection } from 'astro:content';
+
+const entries = (await getCollection('entries')).sort((a, b) => a.data.n - b.data.n);
+const writtenCount = entries.filter((e) => e.data.status === 'written').length;
+---
+<BaseLayout
+  title="The 55 — Fifty-five rules for selling, serving and starting again"
+  description="The complete index of the 55 rules. Written entries are live. Locked entries have their own page — leave your email to hear when each one goes live."
+>
+  <section class="section index-hero">
+    <div class="wrap-read">
+      <p class="type-kicker">The 55</p>
+      <h1 class="type-display-l ih-title">The complete index.</h1>
+      <p class="type-body-l ih-sub">
+        Fifty-five rules, in order. Written entries are dark tiles. Locked entries still
+        have a live page — the page shows the number, and the email opens it as soon as
+        the rule is published.
+      </p>
+      <p class="type-caption ih-progress">
+        <span class="type-num" style="color: var(--red); font-size: 18px;">
+          {String(writtenCount).padStart(2, '0')}
+        </span>
+        <span> of 55 written.</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight index-grid">
+    <div class="wrap">
+      <div class="grid-55" role="list" aria-label="The 55 rules">
+        {entries.map((e) => (
+          <div role="listitem">
+            <RuleTile n={e.data.n} title={e.data.title} status={e.data.status} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <EmailBand
+    variant="band"
+    kicker="The poster"
+    heading="All 55 rules on one page."
+    body="Print it. Pin it above your desk. Your email opens each one as it's written."
+    label="Your email"
+    button="Send me the 55"
+    action="/poster"
+  />
+</BaseLayout>
+
+<style>
+  .index-hero { padding-block-start: clamp(48px, 6vw, 96px); padding-block-end: var(--s-6); }
+  .ih-title { margin-top: 18px; text-wrap: balance; }
+  .ih-sub { margin-top: var(--s-5); color: var(--ink-70); max-width: 55ch; }
+  .ih-progress { margin-top: var(--s-5); }
+  .index-grid { padding-block-end: clamp(64px, 8vw, 128px); }
+  .grid-55 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 900px) { .grid-55 { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 560px) { .grid-55 { grid-template-columns: repeat(2, 1fr); } }
+</style>

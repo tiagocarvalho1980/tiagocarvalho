@@ -1,0 +1,106 @@
+---
+export interface Props {
+  variant?: 'inline' | 'band';
+  kicker?: string;
+  heading?: string;
+  body?: string;
+  label?: string;
+  button?: string;
+  action?: string;
+}
+
+const {
+  variant = 'band',
+  kicker = 'The poster',
+  heading = 'All 55 rules on one page. None of the methods.',
+  body = "Print it. Pin it above your desk. Every title on it is a door, and your email opens them one at a time as they're written.",
+  label = 'Your email',
+  button = 'Send me the 55',
+  action = '#',
+} = Astro.props;
+---
+<section class:list={['email-band', variant]}>
+  <div class:list={[variant === 'band' ? 'wrap' : 'wrap-read']}>
+    <div class="eb-inner">
+      {kicker && <p class="type-kicker">{kicker}</p>}
+      {heading && <h2 class="type-display-m eb-heading">{heading}</h2>}
+      {body && <p class="type-body eb-body">{body}</p>}
+      <form class="eb-form" action={action} method="post" novalidate>
+        <div class="eb-row">
+          <label class="visually-hidden" for="eb-email-{variant}">{label}</label>
+          <input
+            id={`eb-email-${variant}`}
+            type="email"
+            name="email"
+            placeholder={label}
+            required
+            autocomplete="email"
+          />
+          <button type="submit" class:list={['btn', variant === 'band' ? 'btn-red' : '']}>
+            {button}
+          </button>
+        </div>
+        <p class="type-caption eb-fine">One email per new rule. Nothing else. Unsubscribe any time.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .email-band.band {
+    background: var(--ink);
+    color: var(--paper);
+    padding-block: clamp(64px, 8vw, 112px);
+    margin-top: var(--s-9);
+  }
+  .email-band.band .type-kicker { color: var(--brass); }
+  .email-band.band .eb-body { color: var(--paper-70); }
+  .email-band.band .eb-fine { color: var(--paper-45); }
+  .email-band.band input {
+    background: transparent;
+    color: var(--paper);
+    border-color: rgba(244, 241, 234, 0.22);
+  }
+  .email-band.band input::placeholder { color: var(--paper-45); }
+  .email-band.band input:focus {
+    border-color: var(--brass);
+    outline-color: var(--brass);
+  }
+
+  .email-band.inline {
+    padding-block: var(--s-7);
+    border-top: var(--hair);
+    border-bottom: var(--hair);
+    margin-block: var(--s-7);
+  }
+
+  .eb-inner { max-width: 640px; }
+  .eb-heading { margin-top: 12px; margin-bottom: 16px; }
+  .eb-body { margin-bottom: var(--s-5); max-width: 52ch; }
+
+  .eb-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+  }
+  .eb-row input {
+    padding: 16px 18px;
+    font-size: 16px;
+    border: 1px solid var(--ink-15);
+  }
+  .eb-fine { margin-top: 10px; }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 560px) {
+    .eb-row { grid-template-columns: 1fr; }
+  }
+</style>

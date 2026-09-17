@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Tiago Carvalho — Sales strategy',
+  url: 'https://tiagocarvalho.co/work',
+  serviceType: [
+    'Hotel sales systems',
+    'Content that sells',
+    'Speaking',
+  ],
+  provider: {
+    '@type': 'Person',
+    name: 'Tiago Carvalho',
+    url: 'https://tiagocarvalho.co',
+  },
+  areaServed: 'Worldwide',
+};
+---
+<BaseLayout
+  title="Work with Tiago Carvalho — Hotel sales systems, content that sells, speaking"
+  description="Three things: sales systems for hotels, content that sells for founders and small businesses, and speaking. If your problem is one of these, write to me. If it isn't, the 55 is free."
+  schema={schema}
+>
+  <section class="section work-hero">
+    <div class="wrap-read">
+      <p class="type-kicker">Work with me</p>
+      <h1 class="type-display-l wh-title">Three things I do well.</h1>
+      <p class="type-body-l wh-sub">
+        Because I've done each of them for years with my own money on the line. If your
+        problem is one of these, write to me. If it isn't, the 55 is free.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight services">
+    <div class="wrap-read">
+      <div class="service">
+        <p class="type-eyebrow s-num">01</p>
+        <h2 class="type-display-m s-title">Sales systems for hotels</h2>
+        <p class="type-body s-body">
+          Sales training and written procedures for hotel and hospitality teams:
+          reservations, groups, corporate and VIP. A fixed spine every seller follows,
+          with the flexibility to sell the way each market actually buys. Built from
+          the inside of a global hotel group's sales operation, not from a slide deck.
+        </p>
+      </div>
+      <div class="service">
+        <p class="type-eyebrow s-num">02</p>
+        <h2 class="type-display-m s-title">Content that sells</h2>
+        <p class="type-body s-body">
+          Video, social and campaign content for brands that need it to make money, not
+          win awards. Produced by HYPE, a creative studio in Ireland, where the tools are
+          new and the judgement isn't.
+        </p>
+      </div>
+      <div class="service">
+        <p class="type-eyebrow s-num">03</p>
+        <h2 class="type-display-m s-title">Speaking</h2>
+        <p class="type-body s-body">
+          Talks and workshops on selling, rebuilding, and taste in the age of cheap
+          creation. For sales teams, hospitality groups and founders.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight contact">
+    <div class="wrap-read">
+      <p class="type-kicker">Start a conversation</p>
+      <h2 class="type-display-m ct-title">Tell me the situation.</h2>
+      <form class="contact-form" action="{{FORM_HANDLER_URL}}" method="post" novalidate>
+        <div class="field">
+          <label for="cf-name">Name</label>
+          <input id="cf-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <fieldset class="field" style="border:0; padding:0;">
+          <legend>Which of the three</legend>
+          <div class="opts">
+            <label><input type="radio" name="service" value="hotel-sales" required /> <span>Hotel sales</span></label>
+            <label><input type="radio" name="service" value="content-that-sells" /> <span>Content that sells</span></label>
+            <label><input type="radio" name="service" value="speaking" /> <span>Speaking</span></label>
+          </div>
+        </fieldset>
+        <div class="field">
+          <label for="cf-situation">One paragraph on the situation</label>
+          <textarea id="cf-situation" name="situation" rows="5" maxlength="1000" required></textarea>
+        </div>
+        <button type="submit" class="btn">Send</button>
+        <p class="type-caption ct-fine">
+          I read every message. If it's a fit, you'll hear back within two working days.
+        </p>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .work-hero { padding-block: clamp(48px, 6vw, 96px) var(--s-6); }
+  .wh-title { margin-top: 18px; text-wrap: balance; }
+  .wh-sub { margin-top: var(--s-5); color: var(--ink-70); max-width: 55ch; }
+
+  .services { padding-block: clamp(40px, 5vw, 80px); }
+  .service {
+    padding-block: var(--s-6);
+    border-top: var(--hair);
+  }
+  .service:last-child { border-bottom: var(--hair); }
+  .s-num { color: var(--red); }
+  .s-title { margin: 10px 0 var(--s-4); max-width: 22ch; text-wrap: balance; }
+  .s-body { color: var(--ink-70); max-width: 60ch; }
+
+  .contact { padding-block: clamp(56px, 7vw, 96px) clamp(64px, 8vw, 128px); }
+  .ct-title { margin: 12px 0 var(--s-6); }
+  .contact-form { max-width: 560px; }
+  .contact-form legend {
+    font-family: var(--f-body);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .ct-fine { margin-top: var(--s-4); color: var(--ink-70); font-style: italic; }
+</style>
