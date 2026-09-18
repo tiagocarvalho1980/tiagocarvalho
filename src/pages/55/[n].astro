@@ -25,6 +25,11 @@ const prev = all[idx - 1];
 const next = all[idx + 1];
 const pad = (n: number) => String(n).padStart(2, '0');
 
+// Inbound notes: any note that closes on this rule number
+const relatedNotes = (await getCollection('notes'))
+  .filter((n: any) => n.data.rule === entry.data.n)
+  .sort((a: any, b: any) => b.data.date.valueOf() - a.data.date.valueOf());
+
 const pageTitle = isLocked
   ? `Rule ${num} — The 55 by Tiago Carvalho`
   : `Rule ${num}: ${title} — The 55 by Tiago Carvalho`;
@@ -75,6 +80,27 @@ const schema = isLocked ? null : {
             It's on the list, and it's coming in order. Rules ship one per week from
             September. Leave your email and you'll hear when this one is live.
           </p>
+
+          {relatedNotes.length > 0 && (
+            <aside class="rule-notes" aria-labelledby="rule-notes-heading">
+              <p id="rule-notes-heading" class="type-eyebrow rn-heading">Notes on this rule</p>
+              <ul class="rn-list">
+                {relatedNotes.map((n: any) => (
+                  <li class="rn-row">
+                    <a class="rn-link" href={`/notes/${n.id.replace(/\.md$/, '')}`}>
+                      <span class="rn-date type-caption">
+                        {n.data.date.toLocaleDateString('en-GB', {
+                          day: '2-digit', month: 'short', year: 'numeric',
+                        })}
+                      </span>
+                      <span class="rn-title type-body">{n.data.title}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          )}
+
           <div class="locked-email">
             <EmailBand
               variant="inline"
@@ -101,6 +127,26 @@ const schema = isLocked ? null : {
           <div class="entry-book-cta">
             <a href="/book" class="btn btn-outline arrow">The book</a>
           </div>
+
+          {relatedNotes.length > 0 && (
+            <aside class="rule-notes" aria-labelledby="rule-notes-heading">
+              <p id="rule-notes-heading" class="type-eyebrow rn-heading">Notes on this rule</p>
+              <ul class="rn-list">
+                {relatedNotes.map((n: any) => (
+                  <li class="rn-row">
+                    <a class="rn-link" href={`/notes/${n.id.replace(/\.md$/, '')}`}>
+                      <span class="rn-date type-caption">
+                        {n.data.date.toLocaleDateString('en-GB', {
+                          day: '2-digit', month: 'short', year: 'numeric',
+                        })}
+                      </span>
+                      <span class="rn-title type-body">{n.data.title}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          )}
 
           <div class="entry-email">
             <EmailBand
@@ -237,6 +283,37 @@ const schema = isLocked ? null : {
 
   .entry-book-cta { margin-top: var(--s-6); }
   .entry-email { margin-top: var(--s-7); }
+
+  /* Notes on this rule — inbound link list */
+  .rule-notes {
+    margin-top: var(--s-7);
+    padding-top: var(--s-5);
+    border-top: var(--hair);
+  }
+  .rn-heading { margin-bottom: var(--s-3); color: var(--red); }
+  .rn-list { list-style: none; margin: 0; padding: 0; }
+  .rn-row { border-top: var(--hair); }
+  .rn-row:last-child { border-bottom: var(--hair); }
+  .rn-link {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    align-items: baseline;
+    gap: var(--s-5);
+    padding: var(--s-4) 0;
+    transition: background var(--t-med), padding var(--t-med);
+  }
+  .rn-link:hover { background: var(--ink-08); padding-inline: var(--s-3); }
+  .rn-date {
+    color: var(--ink-45);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .rn-title { color: var(--ink); text-wrap: balance; }
+  @media (max-width: 560px) {
+    .rn-link { grid-template-columns: 1fr; gap: 4px; }
+  }
 
   /* Prev / Next */
   .entry-nav {

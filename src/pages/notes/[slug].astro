@@ -66,7 +66,7 @@ const dateFmt = note.data.date.toLocaleDateString('en-GB', {
       </div>
 
       <div class="rule-card">
-        <p class="type-eyebrow rc-label">This closes on</p>
+        <p class="type-eyebrow rc-label">This is a rule</p>
         <a class="rc-link" href={`/55/${num}`}>
           <span class="rc-num type-num">{num}</span>
           <span class="rc-title">
@@ -86,18 +86,27 @@ const dateFmt = note.data.date.toLocaleDateString('en-GB', {
       />
 
       <nav class="note-nav" aria-label="Note navigation">
-        {prev ? (
-          <a class="nn-link nn-prev" href={`/notes/${prev.id.replace(/\.md$/, '')}`}>
-            <span class="type-caption nn-label">Previous</span>
-            <span class="nn-title">{prev.data.title}</span>
+        {(!prev && !next) ? (
+          <a class="nn-link nn-all" href="/notes">
+            <span class="type-caption nn-label">All notes</span>
+            <span class="nn-title">→</span>
           </a>
-        ) : <span />}
-        {next ? (
-          <a class="nn-link nn-next" href={`/notes/${next.id.replace(/\.md$/, '')}`}>
-            <span class="type-caption nn-label">Next</span>
-            <span class="nn-title">{next.data.title}</span>
-          </a>
-        ) : <span />}
+        ) : (
+          <Fragment>
+            {prev ? (
+              <a class="nn-link nn-prev" href={`/notes/${prev.id.replace(/\.md$/, '')}`}>
+                <span class="type-caption nn-label">Previous</span>
+                <span class="nn-title">{prev.data.title}</span>
+              </a>
+            ) : <span />}
+            {next ? (
+              <a class="nn-link nn-next" href={`/notes/${next.id.replace(/\.md$/, '')}`}>
+                <span class="type-caption nn-label">Next</span>
+                <span class="nn-title">{next.data.title}</span>
+              </a>
+            ) : <span />}
+          </Fragment>
+        )}
       </nav>
     </div>
   </article>
@@ -175,6 +184,12 @@ const dateFmt = note.data.date.toLocaleDateString('en-GB', {
     padding-top: var(--s-6);
     border-top: var(--hair);
   }
+  .nn-all {
+    grid-column: 1 / -1;
+    align-items: center;
+    text-align: center;
+  }
+  .nn-all .nn-title { font-family: var(--f-body); font-size: 16px; color: var(--red); }
   .nn-link {
     display: flex;
     flex-direction: column;

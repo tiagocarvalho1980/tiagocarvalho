@@ -23,7 +23,8 @@ const notes = defineCollection({
     title: z.string(),
     date: z.date(),
     rule: z.number().int().min(1).max(55),
-    d: z.enum(['Done', 'Deliver', 'Do', 'Dork', 'Dream']).optional(),
+    // `d` is the D-angle: required. Build fails if missing.
+    d: z.enum(['Done', 'Deliver', 'Do', 'Dork', 'Dream']),
     description: z.string().max(160).optional(),
   }),
 });
