@@ -6,7 +6,7 @@ d: Deliver
 description: "Ireland lost over 2,000 pubs in twenty years. Everyone read it as an obituary. Here's why every one of those closures is a door, and the rule that says so."
 ---
 
-The number went round this week: over two thousand Irish pubs gone in twenty years. The reaction was the usual. Costs, VAT, the young don't drink, the country's changed. All true. All useless.
+The number went round this week: <a href="https://www.rte.ie/news/ireland/2026/0901/1589882-pub-closures/" target="_blank" rel="noopener">over two thousand Irish pubs gone in twenty years</a>. The reaction was the usual. Costs, VAT, the young don't drink, the country's changed. All true. All useless.
 
 Here's what nobody said. Every one of those closures is a room that just got cheap. A licence someone wants rid of. A landlord with a problem and no plan. A high street that lost its living room and doesn't know what replaces it.
 

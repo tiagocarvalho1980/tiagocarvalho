@@ -137,6 +137,19 @@ const dateFmt = note.data.date.toLocaleDateString('en-GB', {
   .note-body :global(p:first-of-type) { font-size: 20px; }
   .note-body :global(strong) { font-weight: 600; }
   .note-body :global(em) { font-style: italic; }
+  .note-body :global(a) {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--red);
+    padding-bottom: 1px;
+    transition: color var(--t-med), border-color var(--t-med);
+  }
+  .note-body :global(a:hover),
+  .note-body :global(a:focus-visible) {
+    color: var(--red);
+    border-bottom-color: var(--ink);
+    outline: none;
+  }
 
   .rule-card {
     margin-top: var(--s-7);
