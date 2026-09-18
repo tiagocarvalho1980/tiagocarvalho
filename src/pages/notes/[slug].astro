@@ -150,6 +150,25 @@ const dateFmt = note.data.date.toLocaleDateString('en-GB', {
     border-bottom-color: var(--ink);
     outline: none;
   }
+  /* Editorial source-citation footer (e.g. "Pub figures: DIGI report ...") */
+  .note-body :global(.note-source) {
+    margin-top: var(--s-6);
+    padding-top: var(--s-4);
+    border-top: var(--hair);
+    font-family: var(--f-body);
+    font-size: 13px;
+    line-height: 1.5;
+    font-style: italic;
+    color: var(--ink-45);
+  }
+  .note-body :global(.note-source a) {
+    color: var(--ink-70);
+    border-bottom-color: var(--ink-15);
+  }
+  .note-body :global(.note-source a:hover) {
+    color: var(--red);
+    border-bottom-color: var(--red);
+  }
 
   .rule-card {
     margin-top: var(--s-7);
