@@ -1,0 +1,104 @@
+---
+---
+<header class="co-nav">
+  <div class="wrap-co co-nav-inner">
+    <a class="co-brand" href="/work" aria-label="Tiago Carvalho — The 55 Method">
+      <span class="co-brand-mark">55</span>
+      <span class="co-brand-name">TIAGO CARVALHO</span>
+    </a>
+
+    <nav class="co-nav-links" aria-label="Primary">
+      <ul>
+        <li><a href="#method">The method</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#demo">Watch the work</a></li>
+        <li><a href="#keynotes">Keynotes</a></li>
+        <li><a href="/" class="co-rulebook">The 55 Rulebook ↗</a></li>
+      </ul>
+    </nav>
+
+    <a class="btn-co co-nav-cta" href="#book">Book a call</a>
+  </div>
+</header>
+
+<style>
+  .co-nav {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: rgba(10, 10, 10, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--co-rule);
+  }
+  .co-nav-inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--co-s-6);
+    padding-block: 16px;
+  }
+  .co-brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .co-brand-mark {
+    font-family: var(--co-f-display);
+    font-size: 32px;
+    line-height: 1;
+    color: var(--co-gold);
+    letter-spacing: -0.02em;
+  }
+  .co-brand-name {
+    font-family: var(--co-f-mono);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--co-bone);
+  }
+  .co-nav-links ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .co-nav-links a {
+    font-family: var(--co-f-mono);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--co-grey);
+    transition: color var(--co-t-med);
+  }
+  .co-nav-links a:hover,
+  .co-nav-links a:focus-visible { color: var(--co-gold); outline: none; }
+  .co-rulebook { color: var(--co-grey) !important; }
+  .co-nav-cta {
+    padding: 10px 18px;
+    min-height: 42px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+  }
+
+  @media (max-width: 920px) {
+    .co-nav-inner {
+      grid-template-columns: auto auto;
+      row-gap: 10px;
+    }
+    .co-nav-links {
+      grid-column: 1 / -1;
+      border-top: 1px solid var(--co-rule);
+      padding-top: 12px;
+    }
+    .co-nav-links ul { justify-content: flex-start; gap: 20px; }
+    .co-nav-links a { font-size: 10px; letter-spacing: 0.18em; }
+  }
+  @media (max-width: 480px) {
+    .co-brand-name { display: none; }
+    .co-nav-cta { font-size: 10px; padding: 8px 14px; min-height: 36px; }
+  }
+</style>

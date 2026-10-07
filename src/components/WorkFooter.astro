@@ -1,0 +1,91 @@
+---
+---
+<footer class="co-foot">
+  <div class="wrap-co co-foot-inner">
+    <div class="co-foot-brand">
+      <span class="co-brand-mark-foot">55</span>
+      <div class="co-foot-wordmark">
+        <span class="co-foot-name">Tiago Carvalho</span>
+        <span class="co-foot-tag">AI sales &amp; marketing training for companies</span>
+      </div>
+    </div>
+
+    <nav class="co-foot-links" aria-label="Footer">
+      <ul>
+        <li><a href="/">The 55 Rulebook ↗</a></li>
+        <li><a href="https://www.linkedin.com/in/tiagocarvalho-hype" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+        <li><a href="https://www.instagram.com/tiagocarvalho.co" target="_blank" rel="noopener">Instagram ↗</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .co-foot {
+    border-top: 1px solid var(--co-rule);
+    padding-block: var(--co-s-8);
+    background: var(--co-ink);
+    color: var(--co-grey);
+    position: relative;
+    z-index: 2;
+  }
+  .co-foot-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--co-s-6);
+    align-items: center;
+  }
+  .co-foot-brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--co-s-4);
+  }
+  .co-brand-mark-foot {
+    font-family: var(--co-f-display);
+    font-size: 42px;
+    line-height: 1;
+    color: var(--co-gold);
+    letter-spacing: -0.02em;
+  }
+  .co-foot-wordmark {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .co-foot-name {
+    font-family: var(--co-f-mono);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--co-bone);
+  }
+  .co-foot-tag {
+    font-family: var(--co-f-body);
+    font-size: 13px;
+    color: var(--co-grey);
+    line-height: 1.4;
+  }
+  .co-foot-links ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+  }
+  .co-foot-links a {
+    font-family: var(--co-f-mono);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--co-grey);
+    transition: color var(--co-t-med);
+  }
+  .co-foot-links a:hover,
+  .co-foot-links a:focus-visible { color: var(--co-gold); outline: none; }
+
+  @media (max-width: 720px) {
+    .co-foot-inner { grid-template-columns: 1fr; gap: var(--co-s-5); }
+    .co-foot-links ul { align-items: flex-start; }
+  }
+</style>
