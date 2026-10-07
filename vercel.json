@@ -4,6 +4,11 @@
       "source": "/poster",
       "destination": "/subscribe",
       "permanent": true
+    },
+    {
+      "source": "/work",
+      "destination": "/",
+      "permanent": true
     }
   ]
 }

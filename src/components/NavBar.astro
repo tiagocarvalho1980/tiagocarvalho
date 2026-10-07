@@ -5,14 +5,14 @@ const isActive = (path: string) =>
 ---
 <header class="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="/">Tiago Carvalho</a>
+    <a class="brand" href="/blog">Tiago Carvalho</a>
     <nav aria-label="Primary">
       <ul class="nav-links">
         <li><a href="/55" class:list={[isActive('/55') && 'active']}>The 55</a></li>
         <li><a href="/notes" class:list={[isActive('/notes') && 'active']}>Notes</a></li>
         <li><a href="/book" class:list={[isActive('/book') && 'active']}>The book</a></li>
         <li>
-          <a href="/work" class="nav-cta" class:list={[isActive('/work') && 'active']}>
+          <a href="/" class="nav-cta" class:list={[currentPath === '/' && 'active']}>
             For companies
           </a>
         </li>
