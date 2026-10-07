@@ -4,21 +4,21 @@
    ========================================================= */
 
 :root {
-  /* Palette */
-  --paper: #F4F1EA;
-  --ink: #161513;
-  --lock-bg: #EDE8DE;
-  --lock-text: #6B655C;
-  --red: #8C2F1B;
-  --brass: #C9B58A;
+  /* Palette — dark register, matches / (companies page) */
+  --paper: #0A0A0A;        /* ground (was warm paper) */
+  --ink: #F2EFE8;          /* text/surface accent (was near-black) */
+  --lock-bg: #1F1F1F;      /* locked tile bg — more visible on dark page */
+  --lock-text: #827D73;    /* locked tile text */
+  --red: #A68A4C;          /* accent — muted antique brass (was Penguin red) */
+  --brass: #C9B58A;        /* secondary accent for dark surfaces */
 
-  /* Derived */
-  --ink-70: rgba(22, 21, 19, 0.72);
-  --ink-45: rgba(22, 21, 19, 0.48);
-  --ink-15: rgba(22, 21, 19, 0.15);
-  --ink-08: rgba(22, 21, 19, 0.08);
-  --paper-70: rgba(244, 241, 234, 0.78);
-  --paper-45: rgba(244, 241, 234, 0.52);
+  /* Derived — now based on bone (--ink) over near-black ground */
+  --ink-70: rgba(242, 239, 232, 0.72);
+  --ink-45: rgba(242, 239, 232, 0.48);
+  --ink-15: rgba(242, 239, 232, 0.15);
+  --ink-08: rgba(242, 239, 232, 0.08);
+  --paper-70: rgba(10, 10, 10, 0.78);
+  --paper-45: rgba(10, 10, 10, 0.52);
 
   /* Fonts */
   --f-display: 'Fraunces', Georgia, 'Times New Roman', serif;

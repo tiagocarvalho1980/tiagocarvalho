@@ -31,10 +31,11 @@ const year = new Date().getFullYear();
 
 <style>
   .site-footer {
-    background: var(--ink);
-    color: var(--paper);
+    background: #141414;
+    color: var(--ink);
     padding-block: clamp(48px, 6vw, 88px);
     margin-top: var(--s-10);
+    border-top: var(--hair);
   }
   .footer-inner {
     display: grid;
@@ -46,7 +47,7 @@ const year = new Date().getFullYear();
     font-family: var(--f-display);
     font-weight: 500;
     font-size: 24px;
-    color: var(--paper);
+    color: var(--ink);
     letter-spacing: -0.01em;
     display: block;
     margin-bottom: 12px;
@@ -55,7 +56,7 @@ const year = new Date().getFullYear();
   .fb-tag {
     font-family: var(--f-body);
     font-size: 14px;
-    color: var(--paper-70);
+    color: var(--ink-70);
     line-height: 1.55;
     max-width: 32ch;
     display: block;
@@ -69,22 +70,22 @@ const year = new Date().getFullYear();
     gap: 10px;
   }
   .foot-nav a, .foot-social a {
-    color: var(--paper-70);
+    color: var(--ink-70);
     font-family: var(--f-body);
     font-size: 13px;
     letter-spacing: 0.02em;
     transition: color var(--t-med);
   }
-  .foot-nav a:hover, .foot-social a:hover { color: var(--brass); }
+  .foot-nav a:hover, .foot-social a:hover { color: var(--red); }
   .foot-meta {
     grid-column: 1 / -1;
     padding-top: var(--s-5);
-    border-top: 1px solid rgba(244, 241, 234, 0.10);
+    border-top: 1px solid var(--ink-15);
     font-family: var(--f-body);
     font-size: 11px;
     letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: var(--paper-45);
+    color: var(--ink-45);
   }
   @media (max-width: 720px) {
     .footer-inner {
