@@ -59,7 +59,7 @@ const covers = [
       </p>
       <div class="hero-ctas">
         <a class="btn-co" href="#book">Book a discovery call</a>
-        <a class="btn-ghost btn-co arrow-co" href="#demo">Watch a 60-minute sale</a>
+        <a class="btn-ghost btn-co arrow-co" href="#programs">See the programs</a>
       </div>
     </div>
   </section>
@@ -314,53 +314,6 @@ const covers = [
       <ul class="covers-list">
         {covers.map((item) => <li class="cover-chip t-body-s">{item}</li>)}
       </ul>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       6.8 — WATCH THE WORK (demo)
-       ============================================================ -->
-  <section id="demo" class="section-co co-demo">
-    <div class="wrap-co">
-      <p class="t-meta t-meta-gold demo-label">— Watch the work</p>
-      <h2 class="t-display-l demo-h2">
-        One prospect. Sixty minutes.<br />
-        <span class="accent">Start to close.</span>
-      </h2>
-      <p class="t-body-l muted demo-sub">
-        No slides. Twenty prospects found, the outreach written, a personal video
-        pitch made and the first call prepared — with AI, in real time. This is what
-        your team learns to do.
-      </p>
-
-      <figure class="demo-frame" aria-label="Demo video placeholder">
-        <div class="demo-placeholder">
-          <span class="t-meta demo-tag">[Demo video — 3-minute cut of the 60-minute AI sale]</span>
-          <svg class="demo-play" viewBox="0 0 64 64" aria-hidden="true">
-            <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5"/>
-            <path d="M26 20 L46 32 L26 44 Z" fill="currentColor"/>
-          </svg>
-        </div>
-      </figure>
-
-      <ol class="demo-timeline">
-        <li>
-          <span class="t-meta demo-ts">00:00</span>
-          <span class="t-body demo-step">Pick the target market</span>
-        </li>
-        <li>
-          <span class="t-meta demo-ts">00:15</span>
-          <span class="t-body demo-step">20 prospects researched</span>
-        </li>
-        <li>
-          <span class="t-meta demo-ts">00:35</span>
-          <span class="t-body demo-step">Outreach + avatar video pitch</span>
-        </li>
-        <li>
-          <span class="t-meta demo-ts">00:60</span>
-          <span class="t-body demo-step">First call prepped, objections ready</span>
-        </li>
-      </ol>
     </div>
   </section>
 
@@ -776,63 +729,6 @@ const covers = [
     transition: border-color var(--co-t-med), color var(--co-t-med), background var(--co-t-med);
   }
   .cover-chip:hover { border-color: var(--co-gold); color: var(--co-gold); }
-
-  /* ============================================================
-     DEMO
-     ============================================================ */
-  .co-demo { padding-block: clamp(80px, 10vw, 160px); border-top: 1px solid var(--co-rule); }
-  .demo-label { margin-bottom: var(--co-s-5); }
-  .demo-h2 { max-width: 15ch; margin-bottom: var(--co-s-5); text-wrap: balance; }
-  .demo-sub { max-width: 60ch; margin-bottom: var(--co-s-7); }
-  .demo-frame { margin: 0; }
-  .demo-placeholder {
-    position: relative;
-    aspect-ratio: 16 / 9;
-    background: #141414;
-    border: 1px solid var(--co-rule);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .demo-tag {
-    position: absolute;
-    top: 16px;
-    left: 20px;
-    color: var(--co-gold);
-  }
-  .demo-play {
-    width: 72px;
-    height: 72px;
-    color: var(--co-gold);
-    transition: transform var(--co-t-med), color var(--co-t-med);
-  }
-  .demo-placeholder:hover .demo-play { transform: scale(1.08); }
-
-  .demo-timeline {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    margin-top: var(--co-s-6);
-    border-top: 1px solid var(--co-rule);
-  }
-  .demo-timeline li {
-    padding: var(--co-s-4) var(--co-s-4);
-    border-right: 1px solid var(--co-rule);
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .demo-timeline li:last-child { border-right: 0; }
-  .demo-timeline li:first-child { padding-left: 0; }
-  .demo-ts { color: var(--co-gold); }
-  .demo-step { color: var(--co-bone); max-width: 24ch; }
-  @media (max-width: 720px) {
-    .demo-timeline { grid-template-columns: 1fr 1fr; }
-    .demo-timeline li { border-bottom: 1px solid var(--co-rule); }
-    .demo-timeline li:nth-child(2) { border-right: 0; }
-    .demo-timeline li:nth-last-child(-n+2) { border-bottom: 0; }
-    .demo-timeline li:nth-child(odd) { padding-left: 0; }
-  }
 
   /* ============================================================
      KEYNOTES
