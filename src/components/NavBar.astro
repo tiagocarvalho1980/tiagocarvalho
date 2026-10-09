@@ -10,6 +10,7 @@ const isActive = (path: string) =>
       <ul class="nav-links">
         <li><a href="/55" class:list={[isActive('/55') && 'active']}>The 55</a></li>
         <li><a href="/notes" class:list={[isActive('/notes') && 'active']}>Notes</a></li>
+        <li><a href="/trending" class:list={[isActive('/trending') && 'active']}>Trending</a></li>
         <li><a href="/book" class:list={[isActive('/book') && 'active']}>The book</a></li>
         <li>
           <a href="/" class="nav-cta" class:list={[currentPath === '/' && 'active']}>

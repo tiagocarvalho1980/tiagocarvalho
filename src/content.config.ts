@@ -29,4 +29,18 @@ const notes = defineCollection({
   }),
 });
 
-export const collections = { entries, notes };
+// Trending — long-form essays and news reactions. SEO-driven, longer than notes,
+// may include tables, FAQ, sources. Rule reference is optional.
+const trending = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/trending' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.date(),
+    rule: z.number().int().min(1).max(55).optional(),
+    description: z.string().max(200).optional(),
+    reading_time: z.string().optional(),
+    keywords: z.array(z.string()).optional(),
+  }),
+});
+
+export const collections = { entries, notes, trending };

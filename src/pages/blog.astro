@@ -6,9 +6,10 @@ import { getCollection } from 'astro:content';
 const writtenRules = (await getCollection('entries'))
   .filter((e) => e.data.status === 'written');
 const notes = await getCollection('notes');
+const trending = await getCollection('trending');
 
 type FeedItem = {
-  kind: 'rule' | 'note';
+  kind: 'rule' | 'note' | 'trending';
   date: Date;
   title: string;
   slug: string;
@@ -32,6 +33,13 @@ const feed: FeedItem[] = [
     slug: `/notes/${n.id.replace(/\.md$/, '')}`,
     d: n.data.d,
     rule: n.data.rule,
+  })),
+  ...trending.map((t: any): FeedItem => ({
+    kind: 'trending',
+    date: t.data.date,
+    title: t.data.title,
+    slug: `/trending/${t.id.replace(/\.md$/, '')}`,
+    rule: t.data.rule,
   })),
 ].sort((a, b) => b.date.valueOf() - a.date.valueOf());
 
@@ -108,10 +116,14 @@ const schema = {
                   })}
                 </span>
                 <span class={`feed-kind feed-kind--${item.kind} type-caption`}>
-                  {item.kind === 'rule' ? `Rule ${String(item.n).padStart(2, '0')}` : 'Note'}
+                  {item.kind === 'rule'
+                    ? `Rule ${String(item.n).padStart(2, '0')}`
+                    : item.kind === 'trending'
+                      ? 'Trending'
+                      : 'Note'}
                 </span>
                 <span class="feed-title type-display-s">{item.title}</span>
-                {item.kind === 'note' && item.rule && (
+                {(item.kind === 'note' || item.kind === 'trending') && item.rule && (
                   <span class="feed-end type-caption">→ Rule {String(item.rule).padStart(2, '0')}</span>
                 )}
               </a>
@@ -223,6 +235,7 @@ const schema = {
   }
   .feed-kind--rule { color: var(--red); }
   .feed-kind--note { color: var(--ink); }
+  .feed-kind--trending { color: var(--brass); }
   .feed-title { color: var(--ink); text-wrap: balance; }
   .feed-end {
     color: var(--red);

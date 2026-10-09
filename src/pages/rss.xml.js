@@ -13,9 +13,11 @@ export async function GET(context) {
   const notes = (await getCollection('notes')).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
   );
+  const trending = (await getCollection('trending')).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  );
 
-  // Combined feed — rules and notes, newest first.
-  // Rules take priority as the primary content (they trigger the newsletter).
+  // Combined feed — rules, notes and trending essays, newest first.
   const items = [
     ...entries.map((e) => {
       const num = String(e.data.n).padStart(2, '0');
@@ -33,6 +35,13 @@ export async function GET(context) {
       description: n.data.description ?? '',
       link: `/notes/${n.id.replace(/\.md$/, '')}`,
       categories: ['Notes'],
+    })),
+    ...trending.map((t) => ({
+      title: t.data.title,
+      pubDate: t.data.date,
+      description: t.data.description ?? '',
+      link: `/trending/${t.id.replace(/\.md$/, '')}`,
+      categories: ['Trending'],
     })),
   ].sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf());
 

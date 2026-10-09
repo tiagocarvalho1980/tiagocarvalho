@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EmailBand from '../../components/EmailBand.astro';
+import { getCollection } from 'astro:content';
+
+const items = (await getCollection('trending')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+<BaseLayout
+  title="Trending — Essays by Tiago Carvalho"
+  description="Long-form essays on the news that matters in sales, marketing and the economy. Each one closes on a rule."
+>
+  <section class="section tr-hero">
+    <div class="wrap-read">
+      <p class="type-kicker">Trending</p>
+      <h1 class="type-display-l th-title">The deeper takes.</h1>
+      <p class="type-body-l th-sub">
+        Long-form essays on the news that matters in sales, marketing and the economy.
+        Each one closes on a rule.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight tr-list-section">
+    <div class="wrap-read">
+      {items.length === 0 ? (
+        <div class="tr-empty">
+          <p class="type-body">First essays drop soon. Leave your email below to catch them.</p>
+        </div>
+      ) : (
+        <ul class="tr-list">
+          {items.map((item) => (
+            <li class="tr-row">
+              <a href={`/trending/${item.id.replace(/\.md$/, '')}`} class="tr-link">
+                <span class="tr-date type-caption">
+                  {item.data.date.toLocaleDateString('en-GB', {
+                    day: '2-digit', month: 'short', year: 'numeric',
+                  })}
+                </span>
+                <div class="tr-mid">
+                  <span class="tr-title type-display-s">{item.data.title}</span>
+                  {item.data.description && (
+                    <span class="tr-desc type-body-s">{item.data.description}</span>
+                  )}
+                </div>
+                {item.data.rule && (
+                  <span class="tr-rule type-caption">→ Rule {String(item.data.rule).padStart(2, '0')}</span>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+
+  <EmailBand
+    variant="band"
+    kicker="Trending"
+    heading="Essays and rules, in your inbox."
+    body="One email per new piece. Nothing else."
+    label="Your email"
+    button="Send me the essays"
+  />
+</BaseLayout>
+
+<style>
+  .tr-hero { padding-block: clamp(48px, 6vw, 96px) var(--s-6); }
+  .th-title { margin-top: 18px; }
+  .th-sub { margin-top: var(--s-5); color: var(--ink-70); max-width: 55ch; }
+
+  .tr-list-section { padding-block-end: clamp(64px, 8vw, 128px); }
+  .tr-empty { padding: var(--s-6) 0 0; color: var(--ink-70); max-width: 52ch; border-top: var(--hair); }
+  .tr-list { list-style: none; margin: 0; padding: 0; border-top: var(--hair); }
+  .tr-row { border-bottom: var(--hair); }
+  .tr-link {
+    display: grid;
+    grid-template-columns: 118px 1fr auto;
+    align-items: start;
+    gap: var(--s-5);
+    padding: var(--s-5) 0;
+    transition: background var(--t-med), padding var(--t-med);
+  }
+  .tr-link:hover { background: var(--ink-08); padding-inline: var(--s-3); }
+  .tr-date {
+    color: var(--ink-45);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .tr-mid { display: flex; flex-direction: column; gap: 8px; }
+  .tr-title { color: var(--ink); text-wrap: balance; }
+  .tr-desc { color: var(--ink-70); max-width: 60ch; }
+  .tr-rule {
+    color: var(--red);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    font-size: 11px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    margin-top: 4px;
+  }
+  @media (max-width: 720px) {
+    .tr-link { grid-template-columns: 1fr; gap: 8px; padding-block: var(--s-4); }
+  }
+</style>
